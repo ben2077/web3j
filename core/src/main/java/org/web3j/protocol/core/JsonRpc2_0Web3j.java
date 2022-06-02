@@ -714,9 +714,9 @@ public class JsonRpc2_0Web3j implements Web3j {
 
     @Override
     public Flowable<LogNotification> logsNotifications(
-            List<String> addresses, List<String> topics) {
+            List<String> addresses, List<String> topics, DefaultBlockParameter startBlock) {
 
-        Map<String, Object> params = createLogsParams(addresses, topics);
+        Map<String, Object> params = createLogsParams(addresses, topics, startBlock);
 
         return web3jService.subscribe(
                 new Request<>(
@@ -728,13 +728,18 @@ public class JsonRpc2_0Web3j implements Web3j {
                 LogNotification.class);
     }
 
-    private Map<String, Object> createLogsParams(List<String> addresses, List<String> topics) {
+    private Map<String, Object> createLogsParams(List<String> addresses, List<String> topics, DefaultBlockParameter startBlock) {
         Map<String, Object> params = new HashMap<>();
         if (!addresses.isEmpty()) {
             params.put("address", addresses);
         }
         if (!topics.isEmpty()) {
             params.put("topics", topics);
+        }
+        if (startBlock != null) {
+            params.put("fromBlock", startBlock.getValue());
+        } else {
+            params.put("fromBlock", "0x0");
         }
         return params;
     }

@@ -204,5 +204,5 @@ public interface Web3jRx {
      *     the list is empty
      * @return a {@link Flowable} instance that emits logs included in new blocks
      */
-    Flowable<LogNotification> logsNotifications(List<String> addresses, List<String> topics);
+    Flowable<LogNotification> logsNotifications(List<String> addresses, List<String> topics, DefaultBlockParameter startBlock);
 }

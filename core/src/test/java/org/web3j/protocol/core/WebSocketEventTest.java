@@ -86,7 +86,7 @@ public class WebSocketEventTest {
 
     @Test
     public void testLogsNotificationsWithoutArguments() {
-        web3j.logsNotifications(new ArrayList<>(), new ArrayList<>());
+        web3j.logsNotifications(new ArrayList<>(), new ArrayList<>(), DefaultBlockParameterName.LATEST);
 
         verify(webSocketClient)
                 .send(
@@ -97,7 +97,8 @@ public class WebSocketEventTest {
 
     @Test
     public void testLogsNotificationsWithArguments() {
-        web3j.logsNotifications(Collections.singletonList("0x1"), Collections.singletonList("0x2"));
+
+        web3j.logsNotifications(Collections.singletonList("0x1"), Collections.singletonList("0x2"), DefaultBlockParameterName.LATEST);
 
         verify(webSocketClient)
                 .send(
