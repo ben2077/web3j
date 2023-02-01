@@ -102,6 +102,17 @@ public class SolidityFunctionWrapperGeneratorTest extends TempFileProvider {
     }
 
     @Test
+    public void testStructArray() throws Exception {
+        testCodeGenerationJvmTypes("structarray", "StructArray");
+    }
+
+    @Test
+    public void testStructArray2() throws Exception {
+        testCodeGenerationJvmTypes("structarray2", "StructArray2");
+        testCodeGenerationSolidityTypes("structarray2", "StructArray2");
+    }
+
+    @Test
     public void testMisc() throws Exception {
         testCodeGenerationJvmTypes("misc", "Misc");
         testCodeGenerationSolidityTypes("misc", "Misc");
@@ -208,8 +219,8 @@ public class SolidityFunctionWrapperGeneratorTest extends TempFileProvider {
                                         inputFileName + ".java"),
                                 File.separator));
         assertEquals(
-                new String(Files.readAllBytes(fileExpected.toPath())),
-                new String(Files.readAllBytes(fileActual.toPath())));
+                new String(Files.readAllBytes(fileExpected.toPath())).replaceAll("(\r\n|\n)", ""),
+                new String(Files.readAllBytes(fileActual.toPath())).replaceAll("(\r\n|\n)", ""));
     }
 
     private void testCodeGenerationJvmTypes(String contractName, String inputFileName)
